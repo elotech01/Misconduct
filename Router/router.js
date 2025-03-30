@@ -1,21 +1,36 @@
 const express = require("express");
-const router  = express.Router();
 
+class Misconduct {
+    constructor() {
+        this.router = express.Router();
+        this.setupRoutes();
+    }
 
-//const PORT  = process.env.PORT || 3000;
+    setupRoutes() {
+        this.router.get("/app", (req, res) => {
+            res.send("<h1>Welcome to app page</h1>");
+        });
 
+        this.router.get("/authentication/:page?", async (req, res) => {
+            const subPage = ["student", "admin"]; // Valid templates
+            let { page } = req.params;
 
+            if (!subPage.includes(page)) {
+                page = "signin"; // Default EJS file
+            }
 
-router.get("/",(req,res)=>{
-    res.send("welcome here now now");
-});
+          //  console.log("Rendering page:", page); // Debugging
 
+            res.render("layout/pages", { page }); // Pass only relative path
+        });
 
+        //setting up admin
+       
+    }
 
-router.get("/signin",(req,res)=>{
-    res.send("this is signin page now");
-});
+    getRoutes() {
+        return this.router;
+    }
+}
 
-
-
-module.exports = router;
+module.exports = Misconduct;
