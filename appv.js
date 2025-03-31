@@ -4,6 +4,7 @@ const bodyParser = require("body-parser");
 const path = require("path");
 const Misconducts = require("./Router/router.js");
 const dashappRoutes = require("./Router/dash.js");
+const dashboards = require("./Router/dash.js");
 app.set("view engine", "ejs");
 
 // Serve static files
@@ -12,7 +13,7 @@ app.use(express.static(path.join(__dirname, "public")));
 // Fix view directory issue
 app.set("views", [
     path.join(__dirname, "subpage"),
-    path.join(__dirname, "subpage", "user")
+    path.join(__dirname, "admin/pages")
 ]);
 
 app.use(bodyParser.json());
@@ -22,10 +23,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 //
 const MisconductRoutes = new Misconducts();
+const dashboardRoute = new dashboards();
 
 // Use routes
 app.use("/", MisconductRoutes.getRoutes());
-
+app.use("/",dashboardRoute.getTemplateReturn());
 
 
 // Start server
