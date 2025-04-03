@@ -1,39 +1,31 @@
 const { render } = require("ejs");
 const expressp = require("express");
 
-class dashboards{
- constructor(){
-    this.adminRoutes = expressp.Router();
-    this.dashboardsSetup();
- }
+class Dashboards {
+    constructor() {
+        this.adminRoutes = expressp.Router();
+        this.dashboardsSetup();
+    }
 
-dashboardsSetup(){
+    dashboardsSetup() {
+        this.adminRoutes.get("/dash-app", async (req, res) => {
+            const dashPage = ["create-report", "investigations","appeals","actions","users"];
 
-    this.adminRoutes.get("/dash-app",async (req,res)=>{
-    
-        const dashPage = ["report","investigations"];
+            let m = req.query.pg ? Buffer.from(req.query.pg, 'base64').toString('utf-8') : "main"; // Fixed destructuring issue
 
-        let {m} = req.query;
+            if (!dashPage.includes(m)) {
+                m = "main";
+            }
+
+            res.render("dashboard", { m });
+        });
+
         
-        if(!dashPage.includes(m)){
-            m="main"
-        }
+    }
 
-        res.render("dashboard",{m});
-
-
-
-    });
-
-
+    getTemplateReturn() {
+        return this.adminRoutes;
+    }
 }
 
-getTemplateReturn(){
-    return this.adminRoutes;
-}
-
-}
-
-
-
-module.exports = dashboards;
+module.exports = Dashboards;

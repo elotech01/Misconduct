@@ -3,8 +3,7 @@ const app = express();
 const bodyParser = require("body-parser");
 const path = require("path");
 const Misconducts = require("./Router/router.js");
-const dashappRoutes = require("./Router/dash.js");
-const dashboards = require("./Router/dash.js");
+const Dashboards = require("./Router/dash.js");
 app.set("view engine", "ejs");
 
 // Serve static files
@@ -23,7 +22,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 //
 const MisconductRoutes = new Misconducts();
-const dashboardRoute = new dashboards();
+const dashboardRoute = new Dashboards();
 
 // Use routes
 app.use("/", MisconductRoutes.getRoutes());
