@@ -1,0 +1,139 @@
+-- Users table (Assumed for login and reports)
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    password_hash VARCHAR(255) NOT NULL,
+    full_name VARCHAR(255),
+    role ENUM('student', 'staff', 'admin') DEFAULT 'student',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    active int DEFAULT 0
+);
+
+-- Reports table
+CREATE TABLE reports (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    type VARCHAR(100) NOT NULL,
+    status ENUM('pending', 'reviewed', 'closed') DEFAULT 'pending',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
+ALTER TABLE `reports` ADD `statements` TEXT NOT NULL AFTER `type`;
+ALTER TABLE `reports` ADD `documents` VARCHAR(100) NOT NULL AFTER `statements`;
+
+
+-- Investigations table
+CREATE TABLE investigations (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    report_id INT NOT NULL,
+    investigator_name VARCHAR(255) NOT NULL,
+    status ENUM('open', 'in progress', 'closed') DEFAULT 'open',
+    findings TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (report_id) REFERENCES reports(id) ON DELETE CASCADE
+);
+
+-- Appeals table
+CREATE TABLE appeals (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    report_id INT NOT NULL,
+    reason TEXT NOT NULL,
+    status ENUM('submitted', 'under review', 'resolved') DEFAULT 'submitted',
+    filed_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (report_id) REFERENCES reports(id) ON DELETE CASCADE
+);
+
+-- Actions table
+CREATE TABLE actions (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    investigation_id INT NOT NULL,
+    action_type VARCHAR(100) NOT NULL,
+    notes TEXT,
+    date_taken DATE NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (investigation_id) REFERENCES investigations(id) ON DELETE CASCADE
+);
+
+-- Indexes for faster searching
+CREATE INDEX idx_report_user ON reports(user_id);
+CREATE INDEX idx_investigation_report ON investigations(report_id);
+CREATE INDEX idx_appeal_report ON appeals(report_id);
+CREATE INDEX idx_action_investigation ON actions(investigation_id);
+
+-- View: All Reports with User Info
+CREATE VIEW view_reports_detailed AS
+SELECT 
+    r.id AS report_id,
+    u.full_name AS reported_by,
+    u.email,
+    r.type,
+    r.status,
+    r.created_at
+FROM reports r
+JOIN users u ON r.user_id = u.id;
+
+-- View: Full Investigation Details
+CREATE VIEW view_investigations_full AS
+SELECT 
+    i.id AS investigation_id,
+    r.id AS report_id,
+    i.investigator_name,
+    i.status,
+    i.findings,
+    i.created_at,
+    u.full_name AS reporter
+FROM investigations i
+JOIN reports r ON i.report_id = r.id
+JOIN users u ON r.user_id = u.id;
+
+-- View: Appeals Overview
+CREATE VIEW view_appeals_summary AS
+SELECT 
+    a.id AS appeal_id,
+    r.id AS report_id,
+    a.reason,
+    a.status,
+    a.filed_at,
+    u.full_name AS reported_by
+FROM appeals a
+JOIN reports r ON a.report_id = r.id
+JOIN users u ON r.user_id = u.id;
+
+-- View: Actions with Investigation Context
+CREATE VIEW view_actions_full AS
+SELECT 
+    a.id AS action_id,
+    a.action_type,
+    a.notes,
+    a.date_taken,
+    i.investigator_name,
+    r.type AS report_type
+FROM actions a
+JOIN investigations i ON a.investigation_id = i.id
+JOIN reports r ON i.report_id = r.id;
+
+ALTER TABLE `users` ADD `identification_number` VARCHAR(50) NOT NULL AFTER `email`, ADD UNIQUE `indentification_number` (`identification_number`(50));
+
+
+create table schools(
+school_id int(10) PRIMARY KEY AUTO_INCREMENT,
+school_name varchar(100) UNIQUE,
+created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+active int DEFAULT 0
+);
+
+create table programmes(
+pid int(10) PRIMARY KEY AUTO_INCREMENT not null,
+school_id int, CONSTRAINT programmes_school_id FOREIGN KEY school_id REFERENCES(schools),
+programme varchar(100) not null,
+created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+active int DEFAULT 0
+);
+
+create table programmes(
+pid int(10) PRIMARY KEY AUTO_INCREMENT not null,
+school_id int, CONSTRAINT programmes_school_id FOREIGN KEY (school_id) REFERENCES schools(school_id),
+programme varchar(100) not null,
+created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+active int DEFAULT 0
+);

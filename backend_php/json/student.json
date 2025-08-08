@@ -1,0 +1,28 @@
+{
+  "data": [
+    {
+      "id": 1,
+      "categories": "Electronics",
+      "total_products": 120,
+      "total_earnings": 45230.75
+    },
+    {
+      "id": 2,
+      "categories": "Clothing",
+      "total_products": 200,
+      "total_earnings": 38450.00
+    },
+    {
+      "id": 3,
+      "categories": "Books",
+      "total_products": 85,
+      "total_earnings": 9200.50
+    },
+    {
+      "id": 4,
+      "categories": "Home & Kitchen",
+      "total_products": 150,
+      "total_earnings": 29800.25
+    }
+  ]
+}

@@ -1,3 +1,110 @@
-<div>
-    create a report
-</div>
+
+  <div class="app-academy">
+    <div class="card p-0 mb-6">
+      <div class="card-body d-flex flex-column flex-md-row justify-content-between p-0 pt-6">
+        <div class="app-academy-md-25 card-body py-0 pt-6 ps-12">
+          <img src="/assets/img/illustrations/bulb-light.png" class="img-fluid app-academy-img-height scaleX-n1-rtl" alt="Bulb in hand" data-app-light-img="illustrations/bulb-light.png" data-app-dark-img="illustrations/bulb-dark.png" height="90">
+        </div>
+        <div class="app-academy-md-50 card-body d-flex align-items-md-center flex-column text-md-center mb-6 py-6">
+          <span class="card-title mb-4 px-md-12 h4">
+            Misconduct, integrity, and <br> reform. <span class="text-primary text-nowrap">All in one place</span>.
+          </span>
+          <p class="mb-4">Explore key issues with the most credible cases and solutions in cheating,<br>plagiarism, ethics violations, reporting, and institutional discipline.</p>
+          <div class="d-flex align-items-center justify-content-between app-academy-md-80">
+            <input type="search" placeholder="Find your course" class="form-control me-4">
+            <button type="submit" class="btn btn-primary btn-icon"><i class="icon-base bx bx-search icon-md"></i></button>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+
+<div class="row">
+    <div class="col-md-12">
+     
+      <div class="card mb-6">
+        <!-- Account -->
+        <div class="card-body">
+          <div class="d-flex align-items-start align-items-sm-center gap-6 pb-4 border-bottom">
+            <img src="https://s.smallpdf.com/static/cms/f/102628/600x519/c9bd5f3c54/word-to-pdf-conversion.svg" alt="user-avatar" class="d-block w-px-100 h-px-100 rounded" id="uploadedAvatar">
+            <div class="button-wrapper">
+              <label for="upload" class="btn btn-primary me-3 mb-4" tabindex="0">
+                <span class="d-none d-sm-block">Upload Supporting Document</span>
+                <i class="icon-base bx bx-upload d-block d-sm-none"></i>
+                <input type="file" id="upload" class="account-file-input" hidden="" accept="image/png, image/jpeg">
+              </label>
+              <button type="button" class="btn btn-label-secondary account-image-reset mb-4">
+                <i class="icon-base bx bx-reset d-block d-sm-none"></i>
+                <span class="d-none d-sm-block">Reset</span>
+              </button>
+
+              <div>Allowed JPG, GIF or PNG. Max size of 800K</div>
+            </div>
+          </div>
+        </div>
+        <div class="card-body pt-4">
+          <form id="formAccountSettings" method="GET" onsubmit="return false">
+            <div class="row g-6">
+              <div class="col-md-6">
+              <div class=" form-control-validation">
+                <label for="firstName" class="form-label">Full Name</label>
+                <div class="form-control" id="firstName">Wale William Best</div>
+              </div>
+              <div class="form-control-validation">
+                <label for="lastName" class="form-label">Identification</label>
+                <div class="form-control" id="Identification">2020929928181AD</div>
+              </div>
+              <div>
+                <label for="type_case" class="form-label">Type</label>
+                <select id="type_case" name="type_case" class="form-control">
+                  <option>--select case type--</option>
+                  <option value="Killing">Killing</option>
+                  <option value="Rapist">Rapist</option>
+                </select>
+              </div>
+              <div>
+                <label for="status_case" class="form-label">Status Case</label>
+                <select id="status_case" name="status_case" class="form-control">
+                  <option>--select case type--</option>
+                  <option value="Killing">Killing</option>
+                  <option value="Rapist">Rapist</option>
+                </select>
+              </div>
+              <div>
+                <label for="organization" class="form-label">Comment</label>
+                <textarea class="form-control" id="comment" rows="5" placeholder="Write here...............">
+                </textarea>
+              </div>
+              </div>
+              <div class="col-md-6">col -2</div>
+            
+            </div>
+            <div class="mt-6">
+              <button type="submit" class="btn btn-primary me-3">Save changes</button>
+              <button type="reset" class="btn btn-label-secondary">Cancel</button>
+            </div>
+          </form>
+        </div>
+        <!-- /Account -->
+      </div>
+      <div class="card">
+        <h5 class="card-header">Delete Account</h5>
+        <div class="card-body">
+          <div class="mb-6 col-12 mb-0">
+            <div class="alert alert-warning">
+              <h5 class="alert-heading mb-1">Are you sure you want to delete your account?</h5>
+              <p class="mb-0">Once you delete your account, there is no going back. Please be certain.</p>
+            </div>
+          </div>
+          <form id="formAccountDeactivation" onsubmit="return false">
+            <div class="form-check my-8 ms-2">
+              <input class="form-check-input" type="checkbox" name="accountActivation" id="accountActivation">
+              <label class="form-check-label" for="accountActivation">I confirm my account deactivation</label>
+            </div>
+            <button type="submit" class="btn btn-danger deactivate-account" disabled="">Deactivate Account</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
