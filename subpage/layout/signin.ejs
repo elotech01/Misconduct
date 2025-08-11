@@ -2,7 +2,7 @@
     <div class="w-px-400 mx-auto mt-sm-12 mt-8">
       <h4 class="mb-1">Welcome to TMC! 👋</h4>
       <p class="mb-6">Please sign-in to your account and start the adventure</p>
-      <p class="mb-6"><strong class="text-danger">The username or password is invalid.</strong></p>
+      <p class="mb-6"><strong class="text-danger" id="msg_error"></strong></p>
       <form id="formAuthentication" action="/loginAuth" method="post" enctype="application/x-www-form-urlencoded">
         <div class="mb-6 form-control-validation">
           <label for="email" class="form-label">Email or Username</label>
@@ -26,7 +26,8 @@
             </a>
           </div>
         </div>
-        <button class="btn btn-primary d-grid w-100">Sign in</button>
+        <input type="submit" class="btn btn-primary d-grid w-100" value="Sign in" />
+        
       </form>
       <p></p>
      <!----<p class="text-center">
@@ -40,3 +41,52 @@
     </div>
   </div>
   
+  <script>
+
+    const codes_object = 
+    {
+      success:"Yes"
+    };
+
+    document.getElementById("formAuthentication").addEventListener("submit",async function(p) {
+      p.preventDefault(); // Prevent the default for Submission
+
+      const data = Object.fromEntries(new FormData(p.target).entries());
+
+      const responseOptions = {
+                method:"POST",
+                headers:{"Content-Type": "application/json"},
+                body:JSON.stringify(data)
+                      };
+      try {
+        const response = await fetch("/loginAuth",responseOptions);
+        const result  = await response.json();
+        console.log(result);
+
+          if(result.success===codes_object.success)
+          {
+            const msgEl = document.getElementById("msg_error");
+             msgEl.classList.remove("text-danger");
+                          msgEl.classList.add("text-info");
+                          msgEl.textContent = "Processing your login. Please wait while we verify your identity.";    
+
+            setTimeout(function(s){
+                        msgEl.classList.remove("text-info");
+                          msgEl.classList.add("text-success");
+                          msgEl.textContent = result.message;
+            },1000);
+           
+          }
+          else
+          {
+           document.getElementById("msg_error").textContent= result.error;
+          }
+
+
+
+      } catch (error) {
+        document.getElementById("msg_error").textContent="An error occurred: " + error.message;
+      }
+
+    });
+  </script>
