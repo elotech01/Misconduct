@@ -7,8 +7,8 @@ class Misconduct {
     }
 
     setupRoutes() {
-        this.router.get("/app", (req, res) => {
-            res.send("<h1>Welcome to app page</h1>");
+        this.router.get("/", (req, res) => {
+            res.send("<h2>Coming Soon 🚀</h2><p>We’re working hard to bring you something amazing. Our app is currently under development — stay tuned!</p>");
         });
 
         this.router.get("/authentication/:page?", async (req, res) => {

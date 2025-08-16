@@ -38,7 +38,6 @@ cookie:{secure:true}
 const MisconductRoutes = new Misconducts();
 const dashboardRoute = new Dashboards();
 
-//SuperClass
 
 
 // Use routes
