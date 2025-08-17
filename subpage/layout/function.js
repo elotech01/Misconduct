@@ -44,7 +44,17 @@ class SuperClass {
                 });
             });
         });
+
+        //This is the welcome dashboard page! It loads all the data in the background, making it very fast when retrieving information from the database, while also serving as a welcome page.
+
+        this.xRouter.get("/welcome",(req,res)=>{
+            res.send("<p>Welcome to dashboard Page</p>");
+        })
+
     }
+
+    
+
 
     getRoutesReturn() {
         return this.xRouter;
