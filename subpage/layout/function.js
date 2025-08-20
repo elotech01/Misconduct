@@ -49,7 +49,10 @@ class SuperClass {
 
         this.xRouter.get("/welcome",(req,res)=>{
             res.send("<p>Welcome to dashboard Page</p>");
-        })
+        });
+        this.xRouter.get("/sessionclose",(req,res)=>{
+            res.send("<p>this is session close</p>")
+        });
 
     }
 
