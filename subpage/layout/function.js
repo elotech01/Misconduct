@@ -54,6 +54,10 @@ class SuperClass {
             res.send("<p>this is session close</p>")
         });
 
+        this.xRouter.get("/testingPage",(req,res)=>{
+res.send("<p>this is testing Page bro</p>");
+        });
+
     }
 
     
